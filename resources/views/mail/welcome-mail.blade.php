@@ -9,5 +9,8 @@
 <body>
     <h3>{{$subject}}</h3>
     <p>{{$mailmessage}}</p>
+    <p>{{$name}}</p>
+    <p>{{$price}}</p>
+    <p>{{$cetagory}}</p>
 </body>
 </html>
