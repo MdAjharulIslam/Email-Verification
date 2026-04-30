@@ -11,10 +11,10 @@ class EmailController extends Controller
     public function sendEmail(){
         $toEmail = "ajharuli440@gmail.com";
         $moreUser = "mdajharulislam327@gmail.com";
-        $message = "Hello , welcome to our website";
+        $message = "Hello , welcome to our website ";
         $subject = "welcome";
          $details=[
-            'name'=> 'jon doe',
+            'name'=> 'jon deo',
             'price'=>'20',
             'cetagory'=>'fruit'
          ];
