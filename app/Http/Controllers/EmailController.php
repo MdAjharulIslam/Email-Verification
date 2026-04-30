@@ -8,21 +8,41 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
-    public function sendEmail(){
-        $toEmail = "ajharuli440@gmail.com";
-        $moreUser = "mdajharulislam327@gmail.com";
-        $message = "Hello , welcome to our website ";
-        $subject = "welcome";
-         $details=[
-            'name'=> 'jon deo',
-            'price'=>'20',
-            'cetagory'=>'fruit'
-         ];
+    // public function sendEmail(){
+    //     $toEmail = "ajharuli440@gmail.com";
+    //     $moreUser = "mdajharulislam327@gmail.com";
+    //     $message = "Hello , welcome to our website ";
+    //     $subject = "welcome";
+    //      $details=[
+    //         'name'=> 'jon deo',
+    //         'price'=>'20',
+    //         'cetagory'=>'fruit'
+    //      ];
 
 
-      $request =  Mail::to($toEmail)->cc($moreUser)
-        ->send(new welcomeemail($message, $subject, $details));
+    //   $request =  Mail::to($toEmail)->cc($moreUser)
+    //     ->send(new welcomeemail($message, $subject, $details));
     
-    dd($request);
-        }
+    // dd($request);
+    //     }
+
+
+    // send email with attachment file
+
+    public function sendContactEmail(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email',
+            'subject'=>'required|min:5|max:100',
+            'message'=>'required|min:10|max:255',
+            'attachment'=>'required|mimes:pdf,doc,docx,xls|max:2048'
+        ]);
+
+        $fileName = time(). "." . $request->file('attachment')->extension();
+        $request->file('attachment')->move('uploads',$fileName);
+
+        dd($fileName);
+
+
+    }
 }
