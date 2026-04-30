@@ -17,9 +17,20 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-lg border-0">
+
+
                     <div class="card-header bg-primary text-white text-center">
                         <h3 class="mb-0">Contact Form</h3>
                     </div>
+                    @if (@session('success'))
+                    <div class="alart alart-success m-2" role="alart">
+                        {{session('success')}}
+                    </div>
+                        @elseIf(@session('error'))
+                         <div class="alart alart-danger m-2" role="alart">
+                        {{session('error')}}
+                    </div>
+                    @endif
 
                     <div class="card-body p-4">
                         <form action="{{route('contact')}}" method="POST" enctype="multipart/form-data">

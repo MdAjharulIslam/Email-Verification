@@ -41,7 +41,15 @@ class EmailController extends Controller
         $fileName = time(). "." . $request->file('attachment')->extension();
         $request->file('attachment')->move('uploads',$fileName);
 
-        dd($fileName);
+      $adminEmail= 'ajharuli440@gmail.com';
+         $response =  Mail::to($adminEmail)
+      ->send(new welcomeemail($request->all(), $fileName));
+    
+        if($response){
+        return back()->with('success', "thanks for contacting us");
+        }else{
+          return back()->with('error', "unable to submit form, please try again");
+        }
 
 
     }

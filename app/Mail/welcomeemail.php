@@ -18,15 +18,23 @@ class welcomeemail extends Mailable
      * Create a new message instance.
      */
 
-    public $mailmessage;
-    public $subject;
-    protected  $details;
+    // public $mailmessage;
+    // public $subject;
+    // protected  $details;
 
-    public function __construct($message, $subject, $details)
+    public $request;
+    public $fileName;
+
+    public function __construct($request, $fileName)
     {
-        $this->mailmessage= $message;
-        $this->subject= $subject;
-        $this->details = $details;
+        // $this->mailmessage= $message;
+        // $this->subject= $subject;
+        // $this->details = $details;
+
+         $this->fileName= $fileName;
+         $this->request = $request;
+
+
     }
 
     /**
@@ -35,7 +43,7 @@ class welcomeemail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->subject,
+            subject: "contact form",
         );
     }
 
@@ -45,13 +53,16 @@ class welcomeemail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view:'mail.welcome-mail',
-            // text:'mail.welcome-mail',
-            with:[
-                'name'=>$this->details['name'],
-                'price'=>$this->details['price'],
-                'cetagory'=>$this->details['cetagory'],
-            ]
+            // view:'mail.welcome-mail',
+            // // text:'mail.welcome-mail',
+            // with:[
+            //     'name'=>$this->details['name'],
+            //     'price'=>$this->details['price'],
+            //     'cetagory'=>$this->details['cetagory'],
+            // ]
+
+
+            view:'mail.welcome-mail'
         );
     }
 
@@ -62,6 +73,12 @@ class welcomeemail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $attachments = [];
+        if($this->fileName){
+            $attachments= [
+            Attachment::fromPath(public_path('/uploads/'.$this->fileName))
+            ];
+        }
+        return $attachments;
     }
 }
