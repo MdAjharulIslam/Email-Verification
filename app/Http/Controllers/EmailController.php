@@ -41,7 +41,7 @@ class EmailController extends Controller
         $fileName = time(). "." . $request->file('attachment')->extension();
         $request->file('attachment')->move('uploads',$fileName);
 
-      $adminEmail= 'ajharuli440@gmail.com';
+        $adminEmail= 'ajharuli440@gmail.com';
          $response =  Mail::to($adminEmail)
       ->send(new welcomeemail($request->all(), $fileName));
     
